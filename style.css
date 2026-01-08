@@ -43,7 +43,7 @@ body {
 
 /* ⭐ flex 줄쪼개짐 방지 핵심 */
 .personal-info {
-  font-size: 15px;
+  font-size: 14px;
   min-width: 0;
 }
 
