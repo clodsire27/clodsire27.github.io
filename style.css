@@ -24,7 +24,10 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* 프로필 */
+/* =====================
+   프로필 영역
+===================== */
+
 .profile {
   display: flex;
   gap: 30px;
@@ -38,6 +41,7 @@ body {
   object-fit: cover;
 }
 
+/* ⭐ flex 줄쪼개짐 방지 핵심 */
 .personal-info {
   min-width: 0;
 }
@@ -46,30 +50,42 @@ body {
   margin: 8px 0;
 }
 
-/* 이름 / 학교 / 학과 / 이메일 라벨 = 초록 */
-.personal-info span {
+/* 라벨 (이름 / 학교 / 학과 / 이메일) */
+.personal-info .label {
   font-weight: bold;
   color: #2f6f4e;
   margin-right: 10px;
+  white-space: nowrap;
 }
 
-/* 이메일 */
+/* =====================
+   이메일
+===================== */
+
 .email {
   display: block;
 }
 
-.email .email-value {
-  overflow-wrap: anywhere;     /* 메일만 줄바꿈 */
+/* 이메일 주소만 */
+.email-value {
+  color: #000;
+  overflow-wrap: anywhere;
 }
 
-/* 섹션 타이틀 */
+/* =====================
+   섹션 제목
+===================== */
+
 h2 {
   margin-top: 25px;
   border-bottom: 2px solid #ccc;
   padding-bottom: 6px;
 }
 
-/* 프로젝트 */
+/* =====================
+   프로젝트
+===================== */
+
 .project-list {
   display: flex;
   gap: 20px;
