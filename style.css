@@ -117,8 +117,8 @@
     font-size: 13px;
     color: #2f6f4e;
   }
+  
   .email {
-    font-size: 14px;        /* 기본보다 살짝 작게 */
-    word-break: break-all; /* 모바일에서 줄바꿈 허용 */
+    word-break: break-all;
   }
   
