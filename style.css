@@ -38,33 +38,29 @@ body {
   object-fit: cover;
 }
 
+.personal-info {
+  min-width: 0;
+}
+
 .personal-info p {
   margin: 8px 0;
 }
 
+/* 이름 / 학교 / 학과 / 이메일 라벨 = 초록 */
 .personal-info span {
+  font-weight: bold;
+  color: #2f6f4e;
   margin-right: 10px;
 }
 
-/* 이메일만 줄바꿈 */
+/* 이메일 */
 .email {
   display: block;
 }
 
 .email .email-value {
-  overflow-wrap: anywhere;
+  overflow-wrap: anywhere;     /* 메일만 줄바꿈 */
 }
-
-.personal-info p:not(.email) {
-  white-space: nowrap;
-}
-
-.email .label {
-  white-space: nowrap;
-  font-weight: bold;
-  color: #2f6f4e;
-}
-
 
 /* 섹션 타이틀 */
 h2 {
@@ -93,11 +89,6 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-4px);
 }
 
 .project-box {
@@ -106,39 +97,15 @@ h2 {
   background-color: #dceee3;
   border-radius: 16px;
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .project-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .project-title span {
   font-size: 14px;
   color: #2f6f4e;
 }
-
-/* 모바일에서는 프로필 세로 정렬 */
-@media (max-width: 600px) {
-  .profile {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .personal-info {
-    width: 100%;
-  }
-
-  .personal-info p {
-    white-space: normal; /* 모바일에서는 자연스럽게 */
-  }
-
-  .email {
-    text-align: center;
-  }
-}
-
