@@ -43,8 +43,6 @@ body {
 }
 
 .personal-info span {
-  font-weight: bold;
-  color: #2f6f4e;
   margin-right: 10px;
 }
 
@@ -57,6 +55,9 @@ body {
   overflow-wrap: anywhere;
 }
 
+.personal-info p:not(.email) {
+  white-space: nowrap;
+}
 
 .email .label {
   white-space: nowrap;
