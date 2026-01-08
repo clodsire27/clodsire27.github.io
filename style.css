@@ -108,6 +108,8 @@
     object-fit: cover;          /* ⭐ 핵심: 박스 안에 꽉 채우기 */
     object-position: center;    /* 중앙 기준 */
     display: block;
+    max-width: 100%;     /* ⭐ 추가 */
+    max-height: 100%;  
   }
   
   
