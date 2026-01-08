@@ -120,3 +120,29 @@ h2 {
   font-size: 13px;
   color: #2f6f4e;
 }
+
+/* 모바일에서는 프로필 세로 정렬 */
+@media (max-width: 600px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .personal-info {
+    width: 100%;
+  }
+
+  .personal-info p {
+    white-space: normal; /* 모바일에서는 자연스럽게 */
+  }
+
+  .email {
+    text-align: center;
+  }
+}
+
+.email .email-value {
+  color: #000;
+  overflow-wrap: anywhere;
+}
