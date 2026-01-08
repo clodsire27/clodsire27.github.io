@@ -50,9 +50,13 @@ body {
 
 /* 이메일만 줄바꿈 */
 .email {
-  display: flex;
-  gap: 10px;
+  display: block;
 }
+
+.email .email-value {
+  overflow-wrap: anywhere;
+}
+
 
 .email .label {
   white-space: nowrap;
@@ -60,9 +64,6 @@ body {
   color: #2f6f4e;
 }
 
-.email .email-value {
-  overflow-wrap: anywhere;
-}
 
 /* 섹션 타이틀 */
 h2 {
