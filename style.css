@@ -132,3 +132,28 @@ h2 {
     font-size: 13px;
   }
 }
+
+.project-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 마우스 오버 */
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+/* 클릭 순간 */
+.project-card:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.project-card {
+  -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+}
+
+
+.project-card:active {
+  transform: scale(0.97);
+}
