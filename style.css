@@ -1,3 +1,4 @@
+/* ================= RESET ================= */
 * {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
@@ -5,7 +6,7 @@
 
 body {
   margin: 0;
-  background-color: #eef7f1;
+  background: #eef7f1;
   padding: 40px 20px;
 }
 
@@ -15,105 +16,132 @@ body {
   margin-bottom: 40px;
 }
 
-.section {
-  background-color: #ffffff;
-  max-width: 900px;
-  margin: 0 auto 40px;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+/* ================= LAYOUT ================= */
+.page-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-/* =====================
-   프로필 영역
-===================== */
+/* ================= CARD BASE ================= */
+.card,
+.section {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  padding: 20px 20px;
+  border-radius: 22px;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+}
 
-.profile {
+@media (max-width: 640px) {
+  .section {
+    padding: 36px 24px;
+  }
+}
+
+/* ================= TOP ================= */
+.top-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 36px;
+}
+
+.top-profile {
   display: flex;
-  gap: 30px;
+  gap: 24px;
   align-items: center;
 }
 
 .profile-img {
   width: 180px;
-  height: 220px;
-  border-radius: 12px;
+  height: 230px;
   object-fit: cover;
+  border-radius: 18px;
 }
 
-/* ⭐ flex 줄쪼개짐 방지 핵심 */
-.personal-info {
-  font-size: 16px;
-  min-width: 0;
+/* ================= EXPERIENCE ================= */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.personal-info p {
-  margin: 8px 0;
+.timeline li {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  margin-bottom: 10px;
 }
 
-/* 라벨 (이름 / 학교 / 학과 / 이메일) */
-.personal-info .label {
-  font-weight: bold;
+.date {
   color: #2f6f4e;
-  margin-right: 10px;
-  white-space: nowrap;
+  font-weight: bold;
 }
 
-/* =====================
-   이메일
-===================== */
+/* ================= TECH STACK ================= */
+.tech-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+  padding: 24px 48px;
+  padding-left: 72px; 
+}
 
-.email {
+.tech-left strong {
   display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
-/* 이메일 주소만 */
-.email-value {
-  color: #000;
-  overflow-wrap: anywhere;
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  row-gap: 8px;
+  margin-bottom: 12px;
 }
 
-/* =====================
-   섹션 제목
-===================== */
-
-h2 {
-  margin-top: 25px;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 6px;
+.pill {
+  background: #eef4ff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #2f5fbf;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-/* =====================
-   프로젝트
-===================== */
-
+/* ================= PROJECT LIST ================= */
 .project-list {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 20px;
+  gap: 28px;
 }
 
 .project-card {
-  width: 200px;
-  padding: 20px;
-  border-radius: 12px;
-  background-color: #f3faf6;
-  text-decoration: none;
-  color: inherit;
-  text-align: center;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  position: relative;
+  z-index: 5;
+  width: 300px;
+  background: #f4faf7;
+  padding: 24px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
 }
 
 .project-box {
-  width: 100%;
-  height: 160px;
-  background-color: #dceee3;
-  border-radius: 16px;
+  height: 170px;
   overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 10px;
 }
 
 .project-box img {
@@ -122,38 +150,403 @@ h2 {
   object-fit: cover;
 }
 
-.project-title span {
-  font-size: 14px;
-  color: #2f6f4e;
+/* ================= MODAL ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  pointer-events: none;
 }
 
-@media (max-width: 600px) {
-  .personal-info {
-    font-size: 13px;
+.modal-overlay.active {
+  display: flex;
+  pointer-events: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  border: none;
+  background: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.modal-hero img {
+  width: 100%;
+  height: 280px;     
+  border-radius: 22px 22px 0 0; 
+  object-fit: cover;
+}
+
+.modal-content {
+  padding-top: 16px;
+  padding-left: 48px;   /* 기존 36px → +12px */
+  padding-right: 36px;
+  padding: 24px 36px 32px; 
+}
+
+
+/* ================= PROJECT DETAIL ================= */
+.project-detail {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #2f6f4e;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ================= HERO ================= */
+
+.project-hero-image {
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 12px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.project-hero-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .project-hero-image img {
+    height: 420px;
   }
 }
 
-.project-card {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.project-hero-text h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
 }
 
-/* 마우스 오버 */
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+.project-sub {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.6;
+  text-align: center;
 }
 
-/* 클릭 순간 */
-.project-card:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+.project-sub span {
+  font-size: 13px;
+  color: #64748b;
 }
 
-.project-card {
-  -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+/* ================= KEYWORDS ================= */
+.project-meta {
+  margin-bottom: 48px;
+}
+
+.keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.keyword-tags span {
+  background: #e0e7ff;
+  color: #1e3a8a;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ================= CONTENT ================= */
+.project-detail h3 {
+  margin-top: 56px;
+  margin-bottom: 14px;
+  font-size: 20px;
+  position: relative;
+}
+
+.project-detail h3::before {
+  content: "";
+  width: 28px;
+  height: 3px;
+  background: #21396c;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.project-detail p,
+.project-detail li {
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.75;
+}
+
+.project-detail ul {
+  padding-left: 20px;
+}
+
+/* ================= PIPELINE ================= */
+.pipeline {
+  background: #f8fafc;
+  padding: 18px 22px;
+  border-radius: 16px;
+  margin-top: 12px;
+}
+
+/* ================= LINKS ================= */
+.project-detail a[target="_blank"] {
+  font-weight: 500;
+  color: #1e40af;
+  text-decoration: none;
+}
+
+.project-detail a[target="_blank"]:hover {
+  text-decoration: underline;
+}
+
+/* ===== FOUC FIX ===== */
+body {
+  visibility: visible;
+}
+.modal-content h2 {
+  margin-bottom: 6px;
+}
+
+.modal-sub {
+  margin-bottom: 14px;   /* 20 → 14 */
+  font-size: 14px;
 }
 
 
-.project-card:active {
-  transform: scale(0.97);
+.modal-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  background: #f8fafc;
+  padding: 18px 22px;
+  border-radius: 16px;
+  margin-bottom: 36px;
+}
+
+.modal-meta .label {
+  display: block;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.modal-meta strong {
+  font-size: 15px;
+}
+
+.modal-content section {
+  margin-bottom: 26px;   /* 기존 34px */
+}
+
+.modal-content h4 {
+  margin-bottom: 10px;
+}
+
+
+
+.modal-links {
+  margin-top: 18px;      /* 32 → 20 */
+  padding-top: 16px;     /* 24 → 16 */
+  gap: 22px;  
+  padding-bottom: 8px;          /* 16 → 12 */
+}
+
+
+/* GitHub 버튼 느낌 */
+#modalGithub {
+  display: inline-block;
+  align-self: flex-start;
+  background: #fef9c3;
+  color: #92400e;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* 더 자세히 보기 */
+#modalLink {
+  font-weight: 600;
+  color: #5b21b6;
+  text-decoration: none;
+}
+
+/* ================= MODAL COMPACT OVERRIDE ================= */
+
+/* 모달 폭 대폭 축소 */
+.modal-card.clean {
+  position: relative;
+  width: 400px;
+  max-width: 88vw;
+  max-height: 95vh;
+  border-radius: 20px;
+  background: #fff;
+
+  /* 🔥 핵심 */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;   /* 카드 자체는 숨김 유지 */
+}
+
+
+/* 이미지 비중은 유지 (정보 대비 강조) */
+.modal-hero img {
+  height: 200px;  
+  object-fit: cover;
+}
+
+/* 내부 여백 절반 수준 */
+.modal-content {
+  padding: 16px 22px 20px;   /* 24~36 → 16~22 */
+}
+
+/* 제목 */
+.modal-content h2 {
+  font-size: 18px;     /* 22 → 20 */
+  margin-bottom: 4px;
+}
+
+/* 부제 */
+.modal-sub {
+  font-size: 12.5px;     /* 14 → 13 */
+  margin-bottom: 10px;
+}
+
+/* 메타 박스 */
+.modal-meta {
+  gap: 14px;           /* 24 → 14 */
+  padding: 12px 14px;  /* 18/22 → 12/14 */
+  border-radius: 12px;
+  margin-bottom: 12px; /* 36 → 18 */
+}
+
+.modal-meta .label {
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.modal-meta strong {
+  font-size: 13px;
+}
+
+/* 섹션 간 간격 대폭 축소 */
+.modal-content section {
+  margin-bottom: 14px; /* 26 → 14 */
+}
+
+.modal-content h4 {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/* 리스트 */
+.modal-content li {
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+/* pill 축소 */
+.modal-content .pill {
+  padding: 3px 8px;
+  font-size: 10px;
+  gap: 8px;
+  row-gap: 6px;
+}
+
+/* 링크 영역 */
+.modal-links {
+  margin-top: 12px;    /* 20 → 12 */
+  padding-top: 12px;
+  gap: 10px;
+}
+
+/* GitHub 버튼 */
+#modalGithub {
+  padding: 8px 14px;   /* 10/18 → 8/14 */
+  font-size: 12px;
+}
+
+/* 더보기 */
+#modalLink {
+  font-size: 12px;
+}
+
+
+.project-hero-image {
+  margin-bottom: 18px;   /* 40 → 18 */
+}
+
+.project-hero-text h2 {
+  margin-bottom: 6px;    /* 기존 10px ↓ */
+}
+
+.project-sub {
+  margin-top: 0;
+}
+
+.project-hero-image {
+  margin-bottom: 18px;   /* 40 → 18 */
+}
+
+
+.project-hero-image {
+  margin-top: 0;
+  margin-bottom: 10px;   /* 사진 ↔ 제목 간격 */
+}
+.section.project-detail {
+  padding-top: 16px;   /* 기존 32px → 확 줄이기 */
+}
+
+.project-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.main-title {
+  margin-bottom: 24px; /* 40 → 24 */
+}
+
+.grid-2col {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Projects 넓게, Publications 좁게 */
+  gap: 32px;
+  align-items: start;
+}
+
+.section.tech-grid {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.tech-grid h2 {
+  margin-bottom: 5px;
+}
+
+.tech-grid strong {
+  margin-top: 5px;
+}
+
+#modalHeroImg {
+  display: none;
+}
+
+.pill {
+  white-space: nowrap;   /* ⭐ 핵심 */
 }

@@ -1,86 +1,204 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <style>
+      html {
+        background: #eef7f1;
+      }
+
+      body {
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+
+      body.loaded {
+        opacity: 1;
+      }
+
+    </style>
+    <script>
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
+    </script>
+    
+  
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
 <body>
 
-  <h1 class="main-title">PORTFOLIO</h1>
+<h1 class="main-title">PORTFOLIO</h1>
 
-  <!-- 1️⃣ 상단: 프로필 & 개인 정보 -->
-  <section class="section">
-    <div class="profile">
-      <img src="images/은아.jpg" alt="프로필 사진" class="profile-img" />
+<div class="page-container">
 
-      <div class="personal-info">
-        <p><span class="label">이름</span> 심은아</p>
-        <p><span class="label">학교</span> 용인대학교</p>
-        <p><span class="label">학과</span> AI학부</p>
-
-
-        <!-- 이메일 (줄바꿈 전용 구조) -->
-        <p class="email">
-          <span class="label">이메일</span>
-          <span class="email-value">s.eunasea@email.com</span>
-        </p>
+  <!-- PROFILE + EXPERIENCE -->
+  <section class="card top-grid">
+    <div class="top-profile">
+      <img src="images/은아.jpg" class="profile-img" />
+      <div>
+        <h2>심은아</h2>
+        <p>Yongin University · AI</p>
+        <p>s.eunasea@gmail.com</p>
+        <div class="pill-list">
+          <a href="https://github.com/clodsire27" class="pill" target="_blank">GitHub · clodsire27</a>
+          <a href="https://www.linkedin.com/" class="pill" target="_blank">LinkedIn · Euna Shim</a>
+        </div>
       </div>
     </div>
+
+    <div>
+      <h3>Experience</h3>
+      <ul class="timeline">
+        <li><span class="date">2023.03 ~</span><span>용인대학교 AI학부</span></li>
+        <li><span class="date">2023.03 ~ 2023.12</span><span>제 3대 AI학부 학생회</span></li>
+        <li><span class="date">2024.01 ~ 2024.12</span><span>제 1대 AI융합학부 학생회</span></li>
+        <li><span class="date">2024.04 ~</span><span>Machine Intelligence Lab. 학부연구생</span></li>
+      </ul>
+    </div>
   </section>
 
-  <!-- 2️⃣ 중단: 학력 / 활동 -->
-  <section class="section">
-    <h2>학력</h2>
-    <p>2023.03 ~ 용인대학교 AI학부 AI전공</p>
+  <!-- TECH STACK -->
+  <section class="section tech-grid">
+    <div>
+      <h2>Tech Stack</h2>
+      <strong>Languages</strong>
+      <div class="pill-list">
+        <span class="pill">Python</span>
+        <span class="pill">C / C++</span>
+      </div>
 
-    <h2>활동</h2>
-    <p>2023.3 ~ 2023.12 제 3대 AI학부 학생회</p>
-    <p>2024.1 ~ 2024.12 제 1대 AI융합학부 학생회</p>
-    <p>2024.4 ~ Machine Intelligence Lab. 학부연구생</p>
-  </section>
+      <strong>Frameworks / Tools</strong>
+      <div class="pill-list">
+        <span class="pill">PyTorch</span>
+        <span class="pill">OpenCV</span>
+      </div>
 
-  <!-- 3️⃣ 하단: 프로젝트 / 링크 / 스킬 -->
-  <section class="section">
-    <h2>Project</h2>
-
-    <div class="project-list">
-      <a href="https://github.com/clodsire27/simple-dance"
-         class="project-card"
-         target="_blank"
-         rel="noopener noreferrer">
-
-        <div class="project-box">
-          <img src="images/dance.jpg" alt="Simple Dance 프로젝트 이미지" />
-        </div>
-        <p class="project-title">
-          Simple Dance<br><span>개인 프로젝트</span>
-        </p>
-      </a>
-
-      <a href="https://github.com/clodsire27/face-lock"
-         class="project-card"
-         target="_blank"
-         rel="noopener noreferrer">
-
-        <div class="project-box">
-          <img src="images/face.jpg" alt="FaceLock 프로젝트 이미지" />
-        </div>
-        <p class="project-title">
-          FaceLock<br><span>팀 프로젝트</span>
-        </p>
-      </a>
+      <strong>ML / CV</strong>
+      <div class="pill-list">
+        <span class="pill">Human Pose Estimation</span>
+        <span class="pill">VTG</span>
+      </div>
     </div>
 
-    <h2>Github</h2>
-    <p>GitHub: https://github.com/clodsire27</p>
-
-    <h2>Skill</h2>
-    <p>Python</p>
-    <p>C</p>
-    <p>Notion</p>
+    <div>
+      <h2>Certificates & Courses</h2>
+      <p class="empty">추후 추가 예정</p>
+    </div>
   </section>
 
+  <!-- PROJECTS -->
+  <section class="grid-2col">
+    <div class="section">
+      <h2>Projects</h2>
+
+      <div class="project-list">
+
+        <!-- FaceLock -->
+        <div class="project-card"
+          data-title="FaceLock"
+          data-subtitle="얼굴 인식 기반 개인 인증 시스템"
+          data-period="2025.05 ~ 2025.05"
+          data-img="images/face.jpg"
+          data-keywords="Face Recognition · OpenCV · Security"
+          data-stack="Python|OpenCV|Numpy"
+          data-desc="FaceLock은 실시간 얼굴 인식을 기반으로 인증된 사용자만 화면 정보를 확인할 수 있도록 제어하는 보안 시스템입니다.
+
+          기본 상태에서는 탐지된 모든 얼굴을 모자이크 처리하여 비인증 사용자의 신원을 보호하며,
+          비밀번호 인증에 성공한 사용자에 한해 모자이크가 해제됩니다.
+          
+          사전에 등록된 사용자는 얼굴 특징 벡터를 기반으로 인식되며,
+          화면에 등장 시 ID가 아닌 ‘이름’으로 라벨이 표시됩니다.
+          
+          "
+          data-features="얼굴 등록 및 특징 벡터 저장|실시간 얼굴 인식|사용자 인증 제어"
+          data-github="https://github.com/clodsire27/face-lock"
+          data-link="facelock.html">
+
+          <div class="project-box"><img src="images/face.jpg"></div>
+          <p class="project-title">FaceLock</p>
+          <p class="project-desc">얼굴 인식 기반 개인 인증 시스템</p>
+        </div>
+
+        <!-- Simple Dance -->
+        <div class="project-card"
+          data-title="Simple Dance"
+          data-subtitle="포즈 인식 기반 인터랙티브 댄스"
+          data-period="2024.11 ~ 2024.11"
+          data-img="images/dance.jpg"
+          data-keywords="Pose Estimation · OpenCV · Feedback"
+          data-stack="Python|OpenCV|Numpy"
+          data-desc="사용자의 전신 포즈를 실시간으로 인식하여 기준 동작과의 유사도를 계산하고 시각적 피드백을 제공하는 프로젝트입니다."
+          data-features="실시간 포즈 인식|동작 유사도 계산|점수 기반 피드백"
+          data-github="https://github.com/clodsire27/simple-dance"
+          data-link="simple_dance.html">
+
+          <div class="project-box"><img src="images/dance.jpg"></div>
+          <p class="project-title">Simple Dance</p>
+          <p class="project-desc">포즈 인식 기반 인터랙티브 댄스</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Publications</h2>
+      <p class="empty">현재 연구를 준비 중입니다.</p>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="projectModal">
+  <div class="modal-card clean">
+    <button class="modal-close">×</button>
+
+    <div class="modal-hero">
+      <img id="modalHeroImg">
+    </div>
+
+    <div class="modal-content">
+      <h2 id="modalTitle"></h2>
+      <p class="modal-sub" id="modalSubtitle"></p>
+
+      <div class="modal-meta">
+        <div>
+          <span class="label">기간</span>
+          <strong id="modalPeriod"></strong>
+        </div>
+        <div>
+          <span class="label">키워드</span>
+          <span id="modalKeywords"></span>
+        </div>
+      </div>
+
+      <section>
+        <h4>기술 스택</h4>
+        <div class="pill-list" id="modalStack"></div>
+      </section>
+
+      <section>
+        <h4>프로젝트 설명</h4>
+        <p id="modalDescription"></p>
+      </section>
+
+      <section>
+        <h4>주요 기능</h4>
+        <ul id="modalFeatures"></ul>
+      </section>
+
+      <div class="modal-links">
+        <a id="modalGithub" target="_blank">GitHub Repository</a>
+        <a id="modalLink" href="javascript:void(0)">과정 자세히 보기 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="modal.js"></script>
 </body>
 </html>

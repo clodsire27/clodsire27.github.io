@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ✅ FOUC 방지 -->
+    <style>
+      body { visibility: hidden; }
+    </style>
+
+    <title>Simple Dance</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+<body>
+
+  <h1 class="main-title">PROJECT</h1>
+
+  <section class="section project-detail">
+
+    <!-- 뒤로가기 -->
+    <a href="index.html" class="back-link">← 돌아가기</a>
+
+    <!-- ===== HERO ===== -->
+    <div class="project-hero">
+
+      <!-- 사진을 먼저 -->
+      <div class="project-hero-image">
+        <img src="images/dance.jpg" alt="Simple Dance Demo" />
+      </div>
+      <!-- 그 다음 텍스트 -->
+      <div class="project-hero-text">
+        <h2>Simple Dance</h2>
+        <p class="project-sub">
+          OpenCV & MediaPipe Pose 기반<br />
+          포즈 키포인트 유사도 기반 춤 평가 시스템<br />
+          <span>(실시간 동작 정확도 분석)</span>
+        </p>
+      </div>
+    </div>
+    <!-- ===== META ===== -->
+    <div class="project-meta">
+      <strong>Keywords</strong>
+      <div class="keyword-tags">
+        <span>Pose Estimation</span>
+        <span>MediaPipe</span>
+        <span>OpenCV</span>
+        <span>Similarity Evaluation</span>
+      </div>
+    </div>
+
+    <!-- ===== OVERVIEW ===== -->
+    <h3>프로젝트 개요</h3>
+    <p>
+      Simple Dance 프로젝트는 웹캠을 통해 사용자의 춤 동작을 실시간으로 인식하고,
+      사전에 준비된 정답 춤 영상(reference dance video)과의
+      포즈 유사도를 비교하여 사용자의 춤 정확도를 점수로 평가하는 시스템입니다.
+    </p>
+    <p>
+      본 시스템은 OpenCV와 MediaPipe Pose를 활용하여
+      사람의 전신 관절 키포인트를 추출하고,
+      관절 위치 및 각도 정보를 기반으로
+      정답 동작과 사용자 동작의 유사도를 정량적으로 계산합니다.
+    </p>
+
+    <!-- ===== ENV ===== -->
+    <h3>개발 환경 및 사용 기술</h3>
+    <ul>
+      <li>Python (VSCode 기반 로컬 환경)</li>
+      <li>OpenCV</li>
+      <li>MediaPipe Pose</li>
+      <li>NumPy</li>
+      <li>JSON (키포인트 데이터 저장)</li>
+    </ul>
+
+    <!-- ===== SYSTEM DESIGN ===== -->
+    <h3>시스템 설계 개요</h3>
+    <p>
+      본 프로젝트에서 해결하고자 한 핵심 질문은 다음과 같습니다.
+    </p>
+    <p>
+      “이 사용자의 춤 동작이 정답 영상과 얼마나 비슷한가?”
+    </p>
+    <p>
+      이를 위해 춤 동작을 특정 클래스나 레이블로 분류하지 않고,
+      프레임 단위의 포즈 키포인트 위치와 관절 각도를
+      직접 비교하는 방식으로 시스템을 설계하였습니다.
+    </p>
+
+    <!-- ===== PIPELINE ===== -->
+    <h3>전체 시스템 흐름</h3>
+    <p class="pipeline">
+      Reference Dance Video → MediaPipe Pose → Pose Keypoints (x, y, z) → JSON 저장<br />
+      User Webcam Input → MediaPipe Pose → Pose Keypoints (x, y, z)<br />
+      → 거리 + 각도 기반 유사도 계산 → 실시간 점수 출력
+    </p>
+
+    <!-- ===== REFERENCE ===== -->
+    <h3>정답 춤 영상 처리</h3>
+    <p>
+      정답 춤 영상은 프레임 단위로 분석되며,
+      MediaPipe Pose를 사용하여 각 프레임에서
+      33개의 전신 관절 키포인트를 추출합니다.
+    </p>
+    <p>
+      추출된 각 관절의 (x, y, z) 좌표는
+      이후 실시간 비교를 위해 JSON 파일 형태로 저장됩니다.
+    </p>
+
+    <!-- ===== REALTIME ===== -->
+    <h3>실시간 사용자 춤 평가</h3>
+    <p>
+      웹캠 입력을 통해 사용자의 춤 동작을 실시간으로 처리하며,
+      기준 영상과 동일한 포즈 추출 파이프라인을 유지하여
+      일관된 비교가 가능하도록 설계하였습니다.
+    </p>
+
+    <!-- ===== STRATEGY ===== -->
+    <h3>중요 관절 중심 비교 전략</h3>
+    <p>
+      모든 관절을 동일하게 비교하는 대신,
+      춤 동작에서 중요한 관절에 가중치를 부여하였습니다.
+    </p>
+    <ul>
+      <li>어깨, 팔꿈치, 손목</li>
+      <li>엉덩이, 무릎, 발목</li>
+    </ul>
+    <p>
+      이를 통해 춤의 핵심 동작이
+      최종 점수에 더 크게 반영되도록 하였습니다.
+    </p>
+
+    <!-- ===== SIMILARITY ===== -->
+    <h3>포즈 유사도 계산 방식</h3>
+    <p>
+      프레임 단위로 사용자 포즈와 기준 포즈의
+      키포인트 간 유클리디안 거리를 계산하여
+      위치 기반 오차를 산출합니다.
+    </p>
+    <p>
+      또한 팔꿈치 및 무릎 관절의 각도를 계산하여
+      단순 위치 비교로는 반영하기 어려운
+      동작의 형태 차이를 추가로 평가합니다.
+    </p>
+
+    <!-- ===== SCORE ===== -->
+    <h3>점수 산출 방식</h3>
+    <p>
+      프레임별 거리 오차와 각도 오차를 누적한 후,
+      이를 기반으로 0~100 사이의 점수로 변환합니다.
+    </p>
+    <p>
+      사용자는 실시간으로 자신의 춤 정확도를
+      화면을 통해 직관적으로 확인할 수 있습니다.
+    </p>
+
+    <!-- ===== UI ===== -->
+    <h3>시각화 및 사용자 인터페이스</h3>
+    <ul>
+      <li>기준 영상과 사용자 영상 좌우 배치</li>
+      <li>양쪽 영상에 포즈 스켈레톤 시각화</li>
+      <li>현재 점수를 실시간 텍스트로 표시</li>
+    </ul>
+
+    <!-- ===== CONSIDERATION ===== -->
+    <h3>구현 과정 중 고려 사항</h3>
+    <ul>
+      <li>프레임 속도 차이를 고려한 프레임 샘플링</li>
+      <li>동작 시작/종료 구간 설정으로 오차 감소</li>
+      <li>포즈 검출 실패 프레임 자동 스킵</li>
+    </ul>
+
+    <!-- ===== CONCLUSION ===== -->
+    <h3>결론</h3>
+    <p>
+      본 프로젝트는 MediaPipe Pose를 활용하여
+      사용자의 춤 동작을 기준 영상과 직접 비교·평가하는
+      인터랙티브 시스템을 성공적으로 구현한 사례입니다.
+    </p>
+    <p>
+      포즈 키포인트 위치와 각도 기반 유사도 계산을 통해,
+      단순 동작 인식을 넘어
+      춤의 정확도와 완성도를 평가할 수 있는
+      실시간 시스템을 완성하였습니다.
+    </p>
+
+    <!-- ===== GITHUB ===== -->
+    <h3>GitHub</h3>
+    <p>
+      <a href="https://github.com/clodsire27/simple-dance" target="_blank">
+        https://github.com/clodsire27/simple-dance
+      </a>
+    </p>
+
+  </section>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.body.style.visibility = "visible";
+    });
+  </script>
+
+</body>
+</html>

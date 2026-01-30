@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ FOUC 방지 (CSS 로드 전 HTML 노출 방지) -->
+  <style>
+    body { visibility: hidden; }
+  </style>
+
+  <title>FaceLock</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <h1 class="main-title">PROJECT</h1>
+
+  <section class="section project-detail">
+
+    <!-- 뒤로가기 -->
+    <a href="index.html" class="back-link">← 돌아가기</a>
+
+    <!-- ===== HERO ===== -->
+    <div class="project-hero">
+
+      <!-- 대표 이미지 (항상 최상단) -->
+      <div class="project-hero-image">
+        <img src="images/face.jpg" alt="FaceLock Demo" />
+      </div>
+
+      <!-- 텍스트 -->
+      <div class="project-hero-text">
+        <h2>FaceLock</h2>
+        <p class="project-sub">
+          Deep Learning이 제한된 환경에서 구현한<br />
+          OpenCV 기반 전통적 얼굴 인식 + 제스처 기반 잠금 해제 시스템<br />
+          <span>(Deep Learning 미사용)</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== META ===== -->
+    <div class="project-meta">
+      <strong>Keywords</strong>
+      <div class="keyword-tags">
+        <span>Face Recognition</span>
+        <span>OpenCV</span>
+        <span>Security</span>
+        <span>LBPH</span>
+      </div>
+    </div>
+
+    <!-- ===== OVERVIEW ===== -->
+    <h3>프로젝트 개요</h3>
+    <p>
+      FaceLock은 실시간 카메라 영상에서 얼굴을 검출·인식하여,
+      인증되지 않은 사용자의 얼굴은 기본적으로 모자이크 처리하고
+      인증된 사용자에 한해 모자이크를 해제하는
+      얼굴 인식 기반 접근 제어 시스템입니다.
+    </p>
+    <p>
+      딥러닝 및 pretrained 모델 사용이 제한된 환경에서,
+      OpenCV가 제공하는 전통적인 얼굴 인식 알고리즘을 활용해
+      실제로 동작 가능한 보안 시스템을 구현하는 것을 목표로 했습니다.
+    </p>
+
+    <!-- ===== CONSTRAINT ===== -->
+    <h3>개발 제약 조건</h3>
+    <ul>
+      <li>Deep Learning 및 pretrained face recognition 모델 사용 금지</li>
+      <li>VSCode + 로컬 Python 환경 사용</li>
+      <li>OpenCV 기반 구현 필수</li>
+    </ul>
+
+    <!-- ===== PROCESS ===== -->
+    <h3>얼굴 인식 구현 과정 및 시행착오</h3>
+    <p>
+      프로젝트 초기에는 Haar Cascade 얼굴 검출 결과만을 활용하여
+      검출된 얼굴 영역(ROI)을 그대로 비교하거나 저장하는 방식으로
+      얼굴 인식을 시도했습니다.
+    </p>
+    <p>
+      그러나 동일 인물임에도 프레임마다 얼굴 위치·크기·조명이 달라졌고,
+      ROI 픽셀 값 변화로 인해 단순 비교 방식은
+      신뢰할 수 없는 결과를 보였습니다.
+    </p>
+    <p>
+      이를 통해 얼굴 검출과 얼굴 인식은 본질적으로 다른 문제이며,
+      얼굴 전용 특징 추출 알고리즘이 반드시 필요하다는 결론에 도달했습니다.
+    </p>
+
+    <h3>얼굴 데이터 수집 및 저장 문제</h3>
+    <p>
+      얼굴 이미지를 자동 저장하는 과정에서
+      배경이 포함되거나 얼굴이 일부만 저장되는 문제가 반복적으로 발생했습니다.
+      이로 인해 학습 데이터 품질이 일정하지 않아 인식 성능이 크게 저하되었습니다.
+    </p>
+    <p>
+      Haar Cascade 결과에 padding을 적용하고,
+      최소 얼굴 크기 조건을 조정하여
+      품질이 낮은 얼굴 이미지를 제외함으로써
+      인식 성능을 점진적으로 개선했습니다.
+    </p>
+
+    <h3>LBPH 기반 전통적 얼굴 인식 도입</h3>
+    <p>
+      딥러닝을 사용할 수 없는 환경에서,
+      OpenCV가 기본 제공하는
+      LBPH(Local Binary Patterns Histogram) 알고리즘을
+      얼굴 인식의 핵심 기술로 채택했습니다.
+    </p>
+    <p>
+      사용자별 얼굴 이미지를 여러 장 확보하고,
+      조명과 각도 다양성을 반영함으로써
+      인식 안정성을 개선했습니다.
+    </p>
+
+    <h3>실시간 환경 안정화</h3>
+    <p>
+      프레임 단위 인식 특성으로 인해
+      동일 인물임에도 label이 순간적으로 변경되는 문제가 발생했습니다.
+    </p>
+    <p>
+      동일한 인식 결과가 연속 프레임에서
+      일정 횟수 이상 유지될 때만
+      최종 인식으로 확정하도록 로직을 보완하여
+      이름 라벨 표시 안정성을 확보했습니다.
+    </p>
+
+    <!-- ===== SECURITY ===== -->
+    <h3>보안 및 접근 제어 방식</h3>
+    <ul>
+      <li>모든 얼굴은 기본적으로 모자이크 처리</li>
+      <li>얼굴 인식 성공 시 등록 사용자만 모자이크 해제</li>
+      <li>인증된 사용자는 실제 이름으로 라벨 표시</li>
+      <li>손 제스처 시퀀스를 통한 2차 인증 적용</li>
+    </ul>
+
+    <h3>최종 시스템 구조</h3>
+    <p class="pipeline">
+      Haar Cascade 얼굴 검출 → LBPH 얼굴 인식 →<br />
+      모자이크 기본 적용 → 인증 성공 시 해제 + 이름 표시 →<br />
+      제스처 시퀀스 기반 잠금 해제
+    </p>
+
+    <h3>결론</h3>
+    <p>
+      본 프로젝트는 딥러닝 없이 전통적인 컴퓨터 비전 기법만으로
+      얼굴 인식 기반 접근 제어 시스템을 구현한 사례입니다.
+      제약 조건을 고려한 설계 선택과
+      반복적인 개선 과정을 통해
+      실제로 활용 가능한 보안 시스템을 완성했습니다.
+    </p>
+
+    <h3>GitHub</h3>
+    <p>
+      <a href="https://github.com/clodsire27/face-lock"
+         target="_blank"
+         rel="noopener noreferrer">
+        https://github.com/clodsire27/face-lock
+      </a>
+    </p>
+
+  </section>
+
+</body>
+</html>
