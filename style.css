@@ -58,6 +58,48 @@ body {
   border-radius: 18px;
 }
 
+@media (max-width: 768px) {
+  .profile-img {
+    width: 140px;      /* 기존 180 → 축소 */
+    height: 180px;     /* 기존 230 → 축소 */
+    margin: 0 auto;    /* 가운데 정렬 유지 */
+  }
+}
+
+
+@media (max-width: 768px) {
+  .top-profile h2 {
+    font-size: 20px;   /* 이름 */
+  }
+
+  .top-profile p {
+    font-size: 14px;   /* 학교 / 이메일 */
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-profile {
+    align-items: flex-start;   /* 가운데 → 왼쪽 */
+  }
+
+  .top-profile > div {
+    margin-left: 0;            /* 불필요한 밀림 제거 */
+  }
+}
+
+@media (max-width: 768px) {
+  .top-profile .pill {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .top-profile .pill-list {
+    justify-content: flex-start;  /* 왼쪽 정렬 */
+  }
+}
+
+
 /* ================= EXPERIENCE ================= */
 .timeline {
   list-style: none;
