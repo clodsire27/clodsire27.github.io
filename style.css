@@ -139,21 +139,20 @@ body {
 }
 
 
-
 .project-card {
   background: #f4faf7;
-  border-radius: 18px;
-  padding: 12px;
-  cursor: pointer;
+  border-radius: 20px;
+  padding: 16px;
 }
+
 
 .project-box {
   width: 100%;
-  aspect-ratio: 1 / 1; 
-  border-radius: 14px;
-  overflow: hidden;
-  margin-bottom: 10px;
+  aspect-ratio: 1 / 1;
+  max-width: 180px; 
+  margin: 0 auto 12px; 
 }
+
 
 .project-box img {
   width: 100%;
@@ -162,19 +161,19 @@ body {
   display: block;
 }
 
-/* 텍스트 */
 .project-card h3 {
-  margin: 0 0 4px;
-  font-size: 15px;
+  margin: 6px 0 4px;
+  font-size: 25px;
+  font-weight: 1500; 
+  letter-spacing: -0.3px;
 }
 
 .project-card p {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.3;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #334155; 
 }
-
-
 
 
 /* ================= MODAL ================= */
