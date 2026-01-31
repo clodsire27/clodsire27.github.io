@@ -323,10 +323,28 @@ body {
   color: #64748b;
 }
 
+.top-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
 @media (max-width: 768px) {
   .top-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; 
     gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline li {
+    grid-template-columns: 1fr;  /* 날짜 / 내용 세로 */
+    gap: 6px;
+  }
+
+  .date {
+    font-size: 13px;
   }
 }
 
