@@ -279,6 +279,13 @@ body {
   align-items: start;
 }
 
+@media (max-width: 768px) {
+  .top-grid {
+    grid-template-columns: 1fr;   /* 2열 → 1열 */
+    gap: 24px;
+  }
+}
+
 
 /* ================= KEYWORDS ================= */
 .project-meta {
