@@ -43,11 +43,13 @@ body {
 }
 
 /* ================= TOP ================= */
-.top-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 36px;
+@media (max-width: 768px) {
+  .top-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
+
 
 .top-profile {
   display: flex;
@@ -116,10 +118,18 @@ body {
 }
 
 /* ================= PROJECT LIST ================= */
-.project-list {
-  display: flex;
-  gap: 28px;
+@media (max-width: 768px) {
+  .project-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .project-card {
+    width: 100%;
+    max-width: 340px;
+  }
 }
+
 
 .project-card {
   position: relative;
@@ -530,10 +540,13 @@ body {
   align-items: start;
 }
 
-.section.tech-grid {
-  padding-top: 5px;
-  padding-bottom: 5px;
+@media (max-width: 768px) {
+  .tech-grid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
 }
+
 
 .tech-grid h2 {
   margin-bottom: 5px;
@@ -547,6 +560,12 @@ body {
   display: none;
 }
 
-.pill {
-  white-space: nowrap;   /* ⭐ 핵심 */
+.pill-list {
+  flex-wrap: wrap;
 }
+
+.pill {
+  white-space: nowrap;
+  max-width: 100%;
+}
+
