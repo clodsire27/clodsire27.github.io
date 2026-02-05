@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- FOUC 방지 -->
+    <style>
+      body { visibility: hidden; }
+    </style>
+
+    <title>Pokemon aLike</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+<body>
+
+  <h1 class="main-title">PROJECT</h1>
+
+  <section class="section project-detail">
+
+    <!-- 뒤로가기 -->
+    <a href="index.html" class="back-link">← 돌아가기</a>
+
+    <!-- ===== HERO ===== -->
+    <div class="project-hero">
+
+      <!-- 이미지 -->
+      <div class="project-hero-image">
+        <img src="images/pokemon.png" alt="Pokemon LookaLike Demo" />
+      </div>
+
+      <!-- 텍스트 -->
+      <div class="project-hero-text">
+        <h2>Pokemon aLike</h2>
+        <p class="project-sub">
+          얼굴 특징 벡터 & CLIP 기반<br />
+          사람 얼굴 ↔ 포켓몬 유사도 매칭 시스템<br />
+          <span>(Human-to-Pokémon Similarity Matching)</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== META ===== -->
+    <div class="project-meta">
+      <strong>Keywords</strong>
+      <div class="keyword-tags">
+        <span>Face Analysis</span>
+        <span>CLIP Embedding</span>
+        <span>Similarity Search</span>
+        <span>Computer Vision</span>
+      </div>
+    </div>
+
+    <!-- ===== OVERVIEW ===== -->
+    <h3>프로젝트 개요</h3>
+    <p>
+      Pokemon LookaLike 프로젝트는 사용자의 얼굴 이미지를 입력으로 받아,
+      얼굴의 구조적 특징과 시각적 스타일을 분석한 뒤
+      가장 닮은 포켓몬을 찾아주는 얼굴-포켓몬 유사도 매칭 시스템입니다.
+    </p>
+    <p>
+      단순 분류(classification)가 아닌,
+      얼굴을 수치 벡터 공간으로 표현하고
+      포켓몬 데이터베이스와의 거리 기반 비교를 통해
+      “어떤 포켓몬과 얼마나 닮았는가”를 정량적으로 계산합니다.
+    </p>
+
+    <!-- ===== ENV ===== -->
+    <h3>개발 환경 및 사용 기술</h3>
+    <ul>
+      <li>Python (로컬 개발 환경)</li>
+      <li>OpenCV (얼굴 전처리)</li>
+      <li>MediaPipe / Face Detection</li>
+      <li>CLIP (Image Embedding)</li>
+      <li>NumPy, PyTorch</li>
+      <li>JSON (포켓몬 속성 데이터)</li>
+    </ul>
+
+    <!-- ===== SYSTEM DESIGN ===== -->
+    <h3>시스템 설계 개요</h3>
+    <p>
+      본 프로젝트의 핵심 질문은 다음과 같습니다.
+    </p>
+    <p>
+      “이 사람의 얼굴은 어떤 포켓몬과 가장 유사한가?”
+    </p>
+    <p>
+      이를 위해 얼굴을 하나의 이미지로만 보지 않고,
+      형태적 특징과 스타일적 특징을 분리하여
+      벡터 공간에서 비교 가능한 구조로 시스템을 설계하였습니다.
+    </p>
+
+      <!-- ===== FAILURE ===== -->
+  <h3>구현 과정에서의 시행착오</h3>
+
+  <h4>시도 1: 포켓몬 이미지를 사람 얼굴로 직접 변환</h4>
+  <p>
+    초기 기획 단계에서는,
+    포켓몬 이미지를 입력으로 받아
+    이를 실제 사람 얼굴 스타일로 변환하는
+    생성 기반 접근 방식을 시도하였습니다.
+  </p>
+  <p>
+    Stable Diffusion 및 스타일 변환 기반 모델을 활용하여
+    포켓몬의 눈, 얼굴형, 색감을
+    사람 얼굴 도메인으로 매핑하고자 하였으나,
+    다음과 같은 한계에 직면하였습니다.
+  </p>
+  <ul>
+    <li>포켓몬과 사람 얼굴 간 구조적 차이가 지나치게 큼</li>
+    <li>눈·코·입의 위치 관계가 현실 얼굴과 불일치</li>
+    <li>동일 포켓몬이라도 결과 이미지의 일관성 부족</li>
+  </ul>
+  <p>
+    특히 생성 결과가
+    “어떤 사람과 닮았다”기보다는
+    단순한 팬아트 또는 변형된 캐릭터 이미지에 가까워,
+    유사도 평가의 기준으로 사용하기 어렵다고 판단하였습니다.
+  </p>
+
+  <h4>시도 2: 얼굴 랜드마크 기반 규칙 매핑</h4>
+  <p>
+    두 번째 시도에서는
+    사람 얼굴과 포켓몬 얼굴을
+    동일한 랜드마크 구조로 표현한 뒤,
+    규칙 기반으로 대응시키는 방식을 실험하였습니다.
+  </p>
+  <p>
+    사람 얼굴에서는
+    눈, 코, 입, 턱 등 명확한 랜드마크 정의가 가능하지만,
+    포켓몬의 경우 캐릭터마다
+    관절 수, 비율, 표현 방식이 크게 달라
+    동일한 기준을 적용하기 어려웠습니다.
+  </p>
+  <ul>
+    <li>일부 포켓몬은 코 또는 입 구조가 존재하지 않음</li>
+    <li>눈의 개수 및 배치가 사람 얼굴과 비대칭</li>
+    <li>랜드마크 정의 자체가 주관적으로 변함</li>
+  </ul>
+  <p>
+    이로 인해 규칙 기반 매핑은
+    포켓몬 디자인에 강하게 의존하는 불안정한 방식이 되었고,
+    일반화 가능한 시스템으로 확장하기 어렵다는 결론에 도달했습니다.
+  </p>
+
+  <h4>✔ 시행착오를 통해 얻은 결론</h4>
+  <p>
+    위의 실패 경험을 통해,
+    본 프로젝트에서는
+    “얼굴을 직접 변환하거나 강제로 대응시키는 방식”보다
+    시각적 특징을 임베딩 공간에서 비교하는 접근이
+    훨씬 안정적이고 확장 가능하다는 판단을 내렸습니다.
+  </p>
+  <p>
+    이러한 이유로 최종적으로는
+    CLIP 기반 이미지 임베딩과
+    거리 기반 유사도 검색 구조를 채택하여
+    Pokemon aLike 시스템을 완성하였습니다.
+  </p>
+
+
+    <!-- ===== PIPELINE ===== -->
+    <h3>전체 시스템 흐름</h3>
+    <p class="pipeline">
+      User Face Image → Face Crop & Alignment → 얼굴 특징 추출<br />
+      → Pokémon 스타일 이미지 생성 → CLIP Embedding<br />
+      → Pokémon CLIP Index와 비교 → 유사도 기반 Top-N 포켓몬 매칭
+    </p>
+
+    <!-- ===== FACE ===== -->
+    <h3>사용자 얼굴 처리</h3>
+    <p>
+      입력된 사용자 얼굴 이미지는
+      얼굴 검출 및 정렬 과정을 거쳐
+      분석에 적합한 얼굴 crop 이미지로 변환됩니다.
+    </p>
+    <p>
+      이 과정에서 얼굴 비율, 위치, 방향 차이를 최소화하여
+      포켓몬 데이터와의 일관된 비교가 가능하도록 설계하였습니다.
+    </p>
+
+    <!-- ===== POKEMON ===== -->
+    <h3>포켓몬 데이터 처리</h3>
+    <p>
+      각 포켓몬은 공식 일러스트 이미지를 기반으로
+      CLIP 임베딩 벡터를 사전에 계산하여 인덱스로 저장합니다.
+    </p>
+    <p>
+      이를 통해 실시간 매칭 과정에서는
+      임베딩 간 거리 계산만으로
+      빠른 유사도 검색이 가능하도록 하였습니다.
+    </p>
+
+    <!-- ===== STRATEGY ===== -->
+    <h3>유사도 계산 전략</h3>
+    <p>
+      Pokemon aLike는 단일 기준이 아닌,
+      여러 단계의 유사도 평가 전략을 사용합니다.
+    </p>
+    <ul>
+      <li>얼굴 구조 기반 특징 비교</li>
+      <li>포켓몬 스타일 이미지와의 CLIP 임베딩 비교</li>
+      <li>거리 기반 Top-N 후보 추출</li>
+    </ul>
+
+    <!-- ===== SCORE ===== -->
+    <h3>유사도 점수 산출</h3>
+    <p>
+      각 포켓몬과의 임베딩 거리 값을
+      정규화하여 유사도 점수로 변환하며,
+      점수가 높을수록 사용자의 얼굴과
+      시각적으로 더 유사한 포켓몬을 의미합니다.
+    </p>
+
+    <!-- ===== UI ===== -->
+    <h3>결과 시각화</h3>
+    <ul>
+      <li>사용자 얼굴 이미지 표시</li>
+      <li>Top-N 포켓몬 결과 카드</li>
+      <li>각 포켓몬별 유사도 점수 제공</li>
+    </ul>
+
+    <!-- ===== CONSIDERATION ===== -->
+    <h3>구현 과정 중 고려 사항</h3>
+    <ul>
+      <li>얼굴 크기 및 위치 차이에 대한 정규화</li>
+      <li>스타일 편향을 줄이기 위한 다중 이미지 생성</li>
+      <li>CLIP 임베딩 분산 안정성</li>
+    </ul>
+
+    <!-- ===== CONCLUSION ===== -->
+    <h3>결론</h3>
+    <p>
+      Pokemon aLike는 얼굴 인식과 이미지 임베딩 기술을 결합하여,
+      사용자 얼굴과 포켓몬 간의 유사성을
+      직관적이면서도 정량적으로 표현한 프로젝트입니다.
+    </p>
+    <p>
+      단순 재미 요소를 넘어,
+      얼굴 특징 벡터 설계와
+      임베딩 기반 유사도 검색 구조를
+      실제 시스템으로 구현했다는 점에서 의미를 가집니다.
+    </p>
+
+    <!-- ===== GITHUB ===== -->
+    <h3>GitHub</h3>
+    <p>
+      <a href="https://github.com/clodsire27/pokemon-lookalike" target="_blank">
+        https://github.com/clodsire27/pokemon-lookalike
+      </a>
+    </p>
+
+  </section>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.body.style.visibility = "visible";
+    });
+  </script>
+
+</body>
+</html>

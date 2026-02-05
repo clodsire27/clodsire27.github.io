@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- ✅ FOUC 방지 (CSS 로드 전 HTML 노출 방지) -->
-  <style>
-    body { visibility: hidden; }
-  </style>
-
-  <title>FaceLock</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <!-- ✅ FOUC 방지 -->
+    <style>
+      body { visibility: hidden; }
+    </style>
+  
+    <title>FaceLock</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  
 <body>
 
   <h1 class="main-title">PROJECT</h1>
@@ -24,13 +24,6 @@
 
     <!-- ===== HERO ===== -->
     <div class="project-hero">
-
-      <!-- 대표 이미지 (항상 최상단) -->
-      <div class="project-hero-image">
-        <img src="images/face.jpg" alt="FaceLock Demo" />
-      </div>
-
-      <!-- 텍스트 -->
       <div class="project-hero-text">
         <h2>FaceLock</h2>
         <p class="project-sub">
@@ -38,6 +31,10 @@
           OpenCV 기반 전통적 얼굴 인식 + 제스처 기반 잠금 해제 시스템<br />
           <span>(Deep Learning 미사용)</span>
         </p>
+      </div>
+
+      <div class="project-hero-image">
+        <img src="images/face.jpg" alt="FaceLock Demo" />
       </div>
     </div>
 
@@ -156,9 +153,7 @@
 
     <h3>GitHub</h3>
     <p>
-      <a href="https://github.com/clodsire27/face-lock"
-         target="_blank"
-         rel="noopener noreferrer">
+      <a href="https://github.com/clodsire27/face-lock" target="_blank">
         https://github.com/clodsire27/face-lock
       </a>
     </p>
