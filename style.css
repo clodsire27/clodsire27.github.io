@@ -109,14 +109,24 @@ body {
 
 .timeline li {
   display: flex;
-  align-items: baseline;   /* 글자 기준선 맞춤 */
-  gap: 16px;               /* ← 여기서 간격 조절 */
 }
 
 .timeline .date {
-  min-width: 64px;         /* 연도 위치 고정 */
+  min-width: 140px;   /* ← 이게 핵심 */
   font-weight: 600;
-  color: #2f6f4e;          /* 기존 연도 색 유지 */
+  color: #2f6f4e;
+}
+
+
+/* Certificates 전용 – Experience에는 영향 없음 */
+.cert-timeline li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;            /* ← 여기서 붙는 정도 조절 */
+}
+
+.cert-timeline .date {
+  min-width: 56px;      /* Experience보다 살짝 줄임 */
 }
 
 
