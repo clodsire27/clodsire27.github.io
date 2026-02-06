@@ -108,10 +108,17 @@ body {
 }
 
 .timeline li {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;   /* 글자 기준선 맞춤 */
+  gap: 16px;               /* ← 여기서 간격 조절 */
 }
+
+.timeline .date {
+  min-width: 64px;         /* 연도 위치 고정 */
+  font-weight: 600;
+  color: #2f6f4e;          /* 기존 연도 색 유지 */
+}
+
 
 .date {
   color: #2f6f4e;
@@ -339,9 +346,17 @@ body {
 
 @media (max-width: 768px) {
   .timeline li {
-    grid-template-columns: 1fr;  /* 날짜 / 내용 세로 */
-    gap: 6px;
+    display: flex;
+    align-items: baseline;   /* 글자 기준선 맞춤 */
+    gap: 16px;               /* ← 여기서 간격 조절 */
   }
+  
+  .timeline .date {
+    min-width: 64px;         /* 연도 위치 고정 */
+    font-weight: 600;
+    color: #2f6f4e;          /* 기존 연도 색 유지 */
+  }
+  
 
   .date {
     font-size: 13px;
